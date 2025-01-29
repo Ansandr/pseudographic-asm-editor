@@ -1,7 +1,7 @@
 {
-  "name": "asmmapper",
+  "name": "pseudographics-editor",
   "version": "1.0.0",
-  "description": "Сітка редактор зображень в псевдографіці",
+  "description": "Сітка редактор зображень в псевдографіці в асемблерний код",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config ./webpack.single.config.js & webpack --config ./webpack.host.config.js",

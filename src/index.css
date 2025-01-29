@@ -2,7 +2,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
   background-color: #f0f0f0;
+}
+
+.result_root {
+  width: 100%;
+  max-width: 800px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+#result_textarea {
+  width: 77%;
+  max-width: 100%;
+  min-height: 300px;
 }
