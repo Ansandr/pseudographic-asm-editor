@@ -3,6 +3,8 @@ import { Component } from '@alexgyver/component';
 import Matrix from './matrix';
 import CanvasMatrix from './canvas';
 
+import * as proc from './processor'
+
 let canvas = new CanvasMatrix(); // для роботи з canvas та зображеням
 let editor = new Matrix(); // Клас для редагування зображення
 
@@ -21,7 +23,17 @@ function resize_h() {
 function render() {
   canvas.merge(editor); // Присвоить матрицу редактора = матрица холста
   canvas.render();
-  //process(); // TODO создание кода преобразования
+  process(); // TODO создание кода преобразования
+}
+
+function process() {
+  let result = proc.makeCode(canvas);
+
+  /** @type {HTMLTextAreaElement} */
+  let textarea = document.getElementById('result_textarea');
+  textarea.value = result.code;
+
+  console.log(result);
 }
 
 // ============== EDITOR ==============
@@ -46,13 +58,14 @@ function click_h(v, current) {
   render();
 }
 
+// Начало программы
 document.addEventListener("DOMContentLoaded", () => {
 
   let ctx = {};
   Component.make('div', {
     class: 'cv_cont',
     context: ctx,
-    parent: document.body,
+    parent: document.getElementById('cv_root'),
     children: [
       {
         tag: 'div',

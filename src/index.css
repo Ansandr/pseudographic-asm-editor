@@ -6,22 +6,3 @@ body {
   height: 100vh;
   background-color: #f0f0f0;
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(16, 30px);
-  grid-template-rows: repeat(16, 30px);
-  gap: 2px;
-}
-.cell {
-  width: 30px;
-  height: 30px;
-  background-color: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
-.button {
-  margin-top: 20px;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
