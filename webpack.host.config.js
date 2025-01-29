@@ -45,7 +45,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: `./src/index.html`,
             filename: `index.html`,
-            favicon: "./src/assets/favicon.svg",
+            favicon: "./src/assets/favicon.ico",
             inject: true,
             minify: false,
             hash: true,
@@ -55,22 +55,12 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'style.css',
         }),
-        new webpack.DefinePlugin({ USE_SW: JSON.stringify(true) }),
         new CopyPlugin({
             patterns: [
-                { from: "src/assets/sw.js", to: "" },
                 { from: "src/assets/manifest.json", to: "" },
                 { from: "src/assets/icon.png", to: "" },
             ],
         }),
-        new ReplaceHashInFileWebpackPlugin([{
-            dir: 'index',
-            files: ['sw.js'],
-            rules: [{
-                search: /@cachename/,
-                replace: '[hash]'
-            }]
-        }])
     ],
 
     mode: 'production',
