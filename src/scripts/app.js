@@ -20,6 +20,10 @@ function resize_h() {
   render();
 }
 
+function update_h() {
+  render();
+}
+
 function render() {
   canvas.merge(editor); // Присвоить матрицу редактора = матрица холста
   canvas.render();
@@ -32,8 +36,6 @@ function process() {
   /** @type {HTMLTextAreaElement} */
   let textarea = document.getElementById('result_textarea');
   textarea.value = result.code;
-
-  console.log(result);
 }
 
 // ============== EDITOR ==============
@@ -52,10 +54,15 @@ function btn_to_color(current) {
   }
 }
 
-function click_h(v, current) {
-  console.log(`${v.x} ${v.y}, current: ${current}`)
-  editor.set(v.x, v.y, btn_to_color(current));
-  render();
+function click_h(v, current_color) {
+  editor.set(v.x, v.y, btn_to_color(current_color));
+  update_h();
+}
+
+// ============== MOUSE ==============
+function drag_h(v, current_color) {
+  editor.set(v.block.x, v.block.y, btn_to_color(current_color));
+  update_h();
 }
 
 // Начало программы
@@ -81,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
   });
 
-  canvas = new CanvasMatrix(ctx.$cv, click_h);
+  canvas = new CanvasMatrix(ctx.$cv, click_h, drag_h);
 
   // Первичный вызов resize_h(): Устанавливаются начальные размеры canvas и матрицы.
   resize_h();

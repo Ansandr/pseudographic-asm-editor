@@ -12,7 +12,7 @@ export default class CanvasMatrix extends Matrix {
      * @param {HTMLCanvasElement} cv The canvas element on which the matrix will be displayed.
      * @param {function} onclick The mouse click event handler function.
      */
-  constructor(cv, onclick) {
+  constructor(cv, onclick, ondrag) {
     super();
 
     if (!cv) return;
@@ -21,10 +21,14 @@ export default class CanvasMatrix extends Matrix {
     this.cx = cv.getContext("2d"); // Context for drawing
 
     this._onclick = onclick; // click handler
+    this._ondrag = ondrag;
 
     // event handler
     cv.addEventListener("mousedown", e => this._onMouseDown(e)); // canvas click event handler
+    document.addEventListener("mousemove", e => this._onMouseMove(e));
     document.addEventListener("mouseup", e => this._onMouseUp(e)); // Отпускание кнопки мыши
+    
+  
   }
 
   resize(w, h) {
@@ -105,6 +109,7 @@ export default class CanvasMatrix extends Matrix {
 
   _blocksize = 0; // Размер блока
   _pressed = false; // Флаг, отвечающий за то, что кнопка мыши зажата
+  _dragged = false;
   _pressXY = []; // Координаты нажатия мыши
 
   black = '#000000';
@@ -123,6 +128,7 @@ export default class CanvasMatrix extends Matrix {
    */
   _onMouseDown(e) {
     this._pressed = true;
+    this._dragged = false;
     this._pressXY = this._getXY(e);
   }
 
@@ -135,13 +141,32 @@ export default class CanvasMatrix extends Matrix {
     if (!this._pressed) return; // Если кнопка не была нажата, выход
 
     this._pressed = false; // Сбрасываем флаг нажатия
-    let cord = this._getXY(e); // Получаем текущие координаты мыши
-    
-    let blockCord = this._blockXY(cord);
+    let xy = this._getXY(e); // Получаем текущие координаты мыши
+    let blockCord = this._blockXY(xy);
     let color = this.get(blockCord.x, blockCord.y);
+    // если был dragged
+    if (this._dragged) {
+      this.cv.style.cursor = 'pointer';
+      document.body.style.cursor = 'default';
+      this._ondrag(this._drag(xy, false), color); // ondrag, который говорит о завершении перетаскивания (release = true)
+    } else {
+      this._onclick(blockCord, color);
+    }
+  }
 
+  _onMouseMove(e) {
+    if (!this._pressed) return;
+    if (!this._dragged) {  // если нет, рисование еще не началось
+      this.cv.style.cursor = 'grab';
+      document.body.style.cursor = 'grab';
+    }
 
-    this._onclick(blockCord, color);
+    this._dragged = true;
+    let xy = this._getXY(e); // Получаем текущие координаты мыши
+    let blockCord = this._blockXY(xy);
+    let color = this.get(blockCord.x, blockCord.y);
+    // false так мышка еще не отпущена.
+    this._ondrag(this._drag(xy, false), color);
   }
   
   /**
@@ -179,5 +204,14 @@ export default class CanvasMatrix extends Matrix {
       x: Math.floor(xy.x / this.cv.width * this.W),
       y: Math.floor(xy.y / this.cv.height * this.H) 
     };
-}
-}
+  }
+
+  _drag(xy, release) {
+    return {
+      dx: xy.x - this._pressXY.x, // разница между текущей координатой мыши и начальной 
+      dy: xy.y - this._pressXY.y,
+      block: this._blockXY(xy), // координаты блока, текущая позиция мыши
+      release: release // отпущена ли кнопка
+    }
+  }
+};
