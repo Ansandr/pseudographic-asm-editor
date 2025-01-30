@@ -1,5 +1,5 @@
 {
-  "name": "pseudographics-editor",
+  "name": "pseudographic-asm-editor",
   "version": "1.0.0",
   "description": "Сітка редактор зображень в псевдографіці в асемблерний код",
   "main": "index.js",
