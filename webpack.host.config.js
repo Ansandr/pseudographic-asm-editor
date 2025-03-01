@@ -14,8 +14,6 @@ module.exports = {
         index: './src/index.js',
     },
 
-    publicPath: './',
-
     output: {
         filename: 'script.js',
         path: path.resolve(__dirname, 'index'),

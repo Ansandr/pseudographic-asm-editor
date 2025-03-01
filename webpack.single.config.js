@@ -12,11 +12,9 @@ module.exports = {
         index: './src/index.js',
     },
 
-    publicPath: './',
-
     output: {
         filename: 'script.js',
-        path: path.resolve(__dirname, 'dist/index'),
+        path: path.resolve(__dirname, 'dist/'),
         clean: true,
         publicPath: '',
     },
