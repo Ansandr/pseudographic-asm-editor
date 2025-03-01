@@ -8,6 +8,10 @@ import * as proc from './processor'
 let canvas = new CanvasMatrix(); // для роботи з canvas та зображеням
 let editor = new Matrix(); // Клас для редагування зображення
 
+let currentColor = 2; // white
+let activeButton = document.querySelector(".white");
+activeButton.classList.add("active");
+
 /**
  * @function resize_h
  * @description Initial install size of canvas and matrices.
@@ -40,28 +44,34 @@ function process() {
 
 // ============== EDITOR ==============
 // Логика для переключение цветов
-function btn_to_color(current) {
-  switch (current) {
-    case 0:
-      return 1
+window.changeColor = function(color, button) {
+  switch (color) {
+    case 'black':
+      currentColor = 0;
       break;
-    case 1:
-      return 2
+    case 'gray':
+      currentColor = 1;
       break;
-    case 2:
-      return 0
+    case 'white':
+      currentColor = 2;
       break;
   }
+
+  if (activeButton) {
+    activeButton.classList.remove("active");
+  }
+  activeButton = button;
+  activeButton.classList.add("active");
 }
 
-function click_h(v, current_color) {
-  editor.set(v.x, v.y, btn_to_color(current_color));
+function click_h(v) {
+  editor.set(v.x, v.y, currentColor);
   update_h();
 }
 
 // ============== MOUSE ==============
-function drag_h(v, current_color) {
-  editor.set(v.block.x, v.block.y, btn_to_color(current_color));
+function drag_h(v) {
+  editor.set(v.block.x, v.block.y, currentColor);
   update_h();
 }
 

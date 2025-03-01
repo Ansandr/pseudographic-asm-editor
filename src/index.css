@@ -6,6 +6,37 @@ body {
   height: 100vh;
   background-color: #f0f0f0;
 }
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+canvas {
+  border: 1px solid black;
+  display: block;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+button {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  width: 100px;
+}
+.white { background-color: white; color: black; }
+.gray { background-color: gray; color: white; }
+.black { background-color: black; color: white; }
+
+.active {
+  outline: 3px solid yellow;
+}
 
 .result_root {
   width: 100%;
@@ -14,7 +45,6 @@ body {
   display: flex;
   align-items: center;
 }
-
 #result_textarea {
   width: 77%;
   max-width: 100%;

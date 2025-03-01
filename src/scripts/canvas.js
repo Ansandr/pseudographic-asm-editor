@@ -148,9 +148,9 @@ export default class CanvasMatrix extends Matrix {
     if (this._dragged) {
       this.cv.style.cursor = 'pointer';
       document.body.style.cursor = 'default';
-      this._ondrag(this._drag(xy, false), color); // ondrag, который говорит о завершении перетаскивания (release = true)
+      this._ondrag(this._drag(xy, false)); // ondrag, который говорит о завершении перетаскивания (release = true)
     } else {
-      this._onclick(blockCord, color);
+      this._onclick(blockCord);
     }
   }
 
@@ -166,7 +166,7 @@ export default class CanvasMatrix extends Matrix {
     let blockCord = this._blockXY(xy);
     let color = this.get(blockCord.x, blockCord.y);
     // false так мышка еще не отпущена.
-    this._ondrag(this._drag(xy, false), color);
+    this._ondrag(this._drag(xy, false));
   }
   
   /**
