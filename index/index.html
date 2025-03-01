@@ -3,14 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Цветная сетка 16x16</title>
+    <title>ASM code image generator 16x16</title>
     <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="favicon.ico?15837a9c85666c587233"><script defer src="script.js?15837a9c85666c587233"></script><link href="style.css?15837a9c85666c587233" rel="stylesheet"></head>
+  <link rel="icon" href="favicon.ico?ddd56283b2009fd72648"><script defer src="script.js?ddd56283b2009fd72648"></script><link href="style.css?ddd56283b2009fd72648" rel="stylesheet"></head>
   <body>
     <div class="section_label">Canvas</div>
-    <section id="cv_root">
-      <!-- Auto generated canvas -->
-    </section>
+      <div class="container">
+        <section id="cv_root">
+          <!-- Auto generated canvas -->
+        </section>
+        <div class="buttons">
+          <button class="white" onclick="changeColor('white', this)">Білий</button>
+          <button class="gray" onclick="changeColor('gray', this)">Сірий</button>
+          <button class="black" onclick="changeColor('black', this)">Чорний</button>
+        </div>
+      </div>
+    
+    
     <section class="result_root">
       <div class="section_label">Code</div>
       <textarea id="result_textarea"></textarea>

@@ -5,7 +5,7 @@
     "start_url": ".",
     "name": "ASMmaper",
     "short_name": "ASMmaper",
-    "description": "Draw image and conert to assembler",
+    "description": "Draw image and convert to assembler code",
     "orientation": "portrait",
     "icons": [
         {
